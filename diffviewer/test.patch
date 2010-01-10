@@ -1,0 +1,191 @@
+diff --git a/MonoDevelop.TaskForce.BugzillaProvider/BugzillaProviderMain.cs b/MonoDevelop.TaskForce.BugzillaProvider/BugzillaProviderMain.cs
+index 111e207..3dfba21 100644
+--- a/MonoDevelop.TaskForce.BugzillaProvider/BugzillaProviderMain.cs
++++ b/MonoDevelop.TaskForce.BugzillaProvider/BugzillaProviderMain.cs
+@@ -49,11 +49,14 @@ namespace MonoDevelop.TaskForce.BugzillaProvider
+ 		{
+ 			providerNode = _providerNode;
+ 
+-			log = new LogUtil ("BugzillaProviderMain");
+-
+ 			if (providerNode == null) {
+ 				log.ERROR ("Provider is wrong!");
+ 			}
++			
++			providerNode.Label = "Bugzilla Provider";
++			this.SeedDataForTesting("bugzilla");
++			
++			
+ 		}
+ 		
+ 		public void CreateNewCategory ()
+@@ -74,7 +77,7 @@ namespace MonoDevelop.TaskForce.BugzillaProvider
+ 		//// </returns>
+ 		public string DoSomething ()
+ 		{
+-			return "Hello world";
++			return "Hello from the bugzilla provider";
+ 		}
+ 		
+ 		public void EditTask (MonoDevelop.TaskForce.Data.TaskData target)
+@@ -85,17 +88,8 @@ namespace MonoDevelop.TaskForce.BugzillaProvider
+ 		
+ 		public void InitializeProvider (MonoDevelop.TaskForce.Data.ProviderData _providerNode)
+ 		{
+-			log.DEBUG("Initializing provider");
+-			providerNode = _providerNode;	
+-			
+-			if(providerNode == null)
+-			{
+-				log.ERROR( "Provider is null" );
+-				throw new NullReferenceException();				
+-			}
+-			
+-			providerNode.Label = "Bugzilla";
+-			
++			log.ERROR("This function is deprecated and shouldn't be called");
++			throw new InvalidOperationException();
+ 		}
+ 		
+ 		public void NewTask (MonoDevelop.TaskForce.Data.ProviderData providerNode)
+@@ -113,16 +107,16 @@ namespace MonoDevelop.TaskForce.BugzillaProvider
+ 		
+ 		public void SeedDataForTesting (string seedString)
+ 		{
++			log.DEBUG("Seeding data for testing");
+ 			for (int i = 0 ; i < 3; i++)
+ 			{
+ 				TaskData taskNode = new TaskData();
+ 				taskNode.CoreDataObject = new BugzillaTaskCore() as ICoreData;
+ 				taskNode.Label = seedString + i.ToString();
+ 				
+-				providerNode.AddChildSilent(taskNode);
++				providerNode.AddChild(taskNode);
+ 			}
+ 			
+-			providerNode.TriggerUpdate();
+ 		}
+ 		
+ 		public string SerializeToXML ()
+diff --git a/MonoDevelop.TaskForce/Data/NodeData.cs b/MonoDevelop.TaskForce/Data/NodeData.cs
+index 5227039..8485d0d 100644
+--- a/MonoDevelop.TaskForce/Data/NodeData.cs
++++ b/MonoDevelop.TaskForce/Data/NodeData.cs
+@@ -168,6 +168,7 @@ namespace MonoDevelop.TaskForce.Data
+ 
+ 			NodeDataChangedEventArgs args = new NodeDataChangedEventArgs ();
+ 			NodeDataChanged (this, args);
++			
+ 		}
+ 
+ 		public virtual void SerializeData ()
+diff --git a/MonoDevelop.TaskForce/Data/ProviderData.cs b/MonoDevelop.TaskForce/Data/ProviderData.cs
+index 5c3bec1..69b4a42 100644
+--- a/MonoDevelop.TaskForce/Data/ProviderData.cs
++++ b/MonoDevelop.TaskForce/Data/ProviderData.cs
+@@ -47,9 +47,12 @@ namespace MonoDevelop.TaskForce.Data
+ 			ExtensionNodeList nodes = AddinManager.GetExtensionNodes ("/MonoDevelop/TaskForce/Providers");
+ 
+ 
++			log.INFO("Creating a new provider");
+ 			// take nodes[0] by default
+-			ProviderExtensionNode node = nodes[1] as ProviderExtensionNode;
++			ProviderExtensionNode node = nodes[0] as ProviderExtensionNode;
+ 			provider = (IProvider)Activator.CreateInstance (node.Class);
++			
++			
+ 
+ 		}
+ 
+diff --git a/MonoDevelop.TaskForce/Data/TFStore.cs b/MonoDevelop.TaskForce/Data/TFStore.cs
+index b2fa97d..57ad2b3 100644
+--- a/MonoDevelop.TaskForce/Data/TFStore.cs
++++ b/MonoDevelop.TaskForce/Data/TFStore.cs
+@@ -82,7 +82,7 @@ namespace MonoDevelop.TaskForce.Data
+ 			ProviderData defaultProvider = new ProviderData ();
+ 
+ 			defaultProvider.provider.ConstructBasicProvider (defaultProvider);
+-			defaultProvider.Label = "Tasks for " + ActiveSolution.Name;
++			//defaultProvider.Label = "Tasks for " + ActiveSolution.Name;
+ 
+ 			// Create some data in the provider first.
+ 			// defaultProvider.provider.SeedDataForTesting("test_seed");
+diff --git a/MonoDevelop.TaskForce/Gui/TaskPad/ProviderNodeBuilder.cs b/MonoDevelop.TaskForce/Gui/TaskPad/ProviderNodeBuilder.cs
+index 3444018..6d7abcb 100644
+--- a/MonoDevelop.TaskForce/Gui/TaskPad/ProviderNodeBuilder.cs
++++ b/MonoDevelop.TaskForce/Gui/TaskPad/ProviderNodeBuilder.cs
+@@ -85,14 +85,7 @@ namespace MonoDevelop.TaskForce.Gui.TaskPad
+ 
+ 		}
+ 
+-		public override void OnNodeDataChanged (MonoDevelop.TaskForce.Data.NodeData source, MonoDevelop.TaskForce.Data.NodeDataChangedEventArgs args)
+-		{
+-			if (source is ProviderData) {
+-				// get the tree builder
+-				ITreeBuilder treeBuilder = Context.GetTreeBuilder (source);
+-				treeBuilder.UpdateAll ();
+-			}
+-		}
++		
+ 
+ 		public override void Dispose ()
+ 		{
+diff --git a/MonoDevelop.TaskForce/Gui/TaskPad/TaskNodeBuilder.cs b/MonoDevelop.TaskForce/Gui/TaskPad/TaskNodeBuilder.cs
+index bd6c47c..a4dc0df 100644
+--- a/MonoDevelop.TaskForce/Gui/TaskPad/TaskNodeBuilder.cs
++++ b/MonoDevelop.TaskForce/Gui/TaskPad/TaskNodeBuilder.cs
+@@ -81,14 +81,7 @@ namespace MonoDevelop.TaskForce.Gui.TaskPad
+ 
+ 		}
+ 
+-		public override void OnNodeDataChanged (NodeData source, NodeDataChangedEventArgs args)
+-		{
+-			if (source is TaskData) {
+-				// get the tree builder
+-				ITreeBuilder treeBuilder = Context.GetTreeBuilder (source);
+-				treeBuilder.UpdateAll ();
+-			}
+-		}
++		
+ 
+ 		public override void Dispose ()
+ 		{
+diff --git a/MonoDevelop.TaskForce/Gui/TaskPad/TaskPadNodeBuilder.cs b/MonoDevelop.TaskForce/Gui/TaskPad/TaskPadNodeBuilder.cs
+index 03175c4..05841ae 100644
+--- a/MonoDevelop.TaskForce/Gui/TaskPad/TaskPadNodeBuilder.cs
++++ b/MonoDevelop.TaskForce/Gui/TaskPad/TaskPadNodeBuilder.cs
+@@ -88,7 +88,8 @@ namespace MonoDevelop.TaskForce.Gui.TaskPad
+ 			base.OnNodeAdded (dataObject);
+ 			if (dataObject is NodeData) {
+ 				NodeData nodeData = dataObject as NodeData;
+-				nodeData.NodeDataChanged += OnNodeDataChanged;
++				log.WARN("Subscribing to the NodeDataChanged handler now");
++				nodeData.NodeDataChanged += new NodeDataChangedHandler(OnNodeDataChanged);
+ 			}
+ 		}
+ 
+@@ -97,12 +98,22 @@ namespace MonoDevelop.TaskForce.Gui.TaskPad
+ 			base.OnNodeAdded (dataObject);
+ 			if (dataObject is NodeData) {
+ 				NodeData nodeData = dataObject as NodeData;
+-				nodeData.NodeDataChanged -= OnNodeDataChanged;
++				nodeData.NodeDataChanged -= new NodeDataChangedHandler(OnNodeDataChanged);
+ 			}
+ 		}
+ 
+ 
+-		public abstract void OnNodeDataChanged (MonoDevelop.TaskForce.Data.NodeData source, NodeDataChangedEventArgs args);
++		public virtual void OnNodeDataChanged (MonoDevelop.TaskForce.Data.NodeData source, NodeDataChangedEventArgs args)
++		{
++			if (source is NodeData) {
++				// get the tree builder
++				ITreeBuilder treeBuilder = Context.GetTreeBuilder (source);
++				if(treeBuilder != null)
++				{
++					treeBuilder.UpdateAll ();
++			}
++			}
++		}
+ 
+ 
+ 		public abstract void DataTypeComparison (object dataObject);

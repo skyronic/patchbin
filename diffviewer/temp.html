@@ -1,0 +1,170 @@
+
+
+ <b>Processing a chunk</b> 
+
+
+<table border="1">
+<tr><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td></tr>
+<tr><td class="white">		{</td><td class="white">		{</td></tr>
+<tr><td class="white">			providerNode = _providerNode;</td><td class="white">			providerNode = _providerNode;</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="red">			log = new LogUtil ("BugzillaProviderMain");</td><td class="white"></td></tr>
+<tr><td class="red"></td><td class="white"></td></tr>
+<tr><td class="white">			if (providerNode == null) {</td><td class="white">			if (providerNode == null) {</td></tr>
+<tr><td class="white">				log.ERROR ("Provider is wrong!");</td><td class="white">				log.ERROR ("Provider is wrong!");</td></tr>
+<tr><td class="white">			}</td><td class="white">			}</td></tr>
+<tr><td class="white"></td><td class="green">			</td></tr>
+<tr><td class="white"></td><td class="green">			providerNode.Label = "Bugzilla Provider";</td></tr>
+<tr><td class="white"></td><td class="green">			this.SeedDataForTesting("bugzilla");</td></tr>
+<tr><td class="white"></td><td class="green">			</td></tr>
+<tr><td class="white"></td><td class="green">			</td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white">		</td><td class="white">		</td></tr>
+<tr><td class="white">		public void CreateNewCategory ()</td><td class="white">		public void CreateNewCategory ()</td></tr>
+<tr><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td></tr>
+<tr><td class="white">		//// </returns></td><td class="white">		//// </returns></td></tr>
+<tr><td class="white">		public string DoSomething ()</td><td class="white">		public string DoSomething ()</td></tr>
+<tr><td class="white">		{</td><td class="white">		{</td></tr>
+<tr><td class="red">			return "Hello world";</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">			return "Hello from the bugzilla provider";</td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white">		</td><td class="white">		</td></tr>
+<tr><td class="white">		public void EditTask (MonoDevelop.TaskForce.Data.TaskData target)</td><td class="white">		public void EditTask (MonoDevelop.TaskForce.Data.TaskData target)</td></tr>
+<tr><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td></tr>
+<tr><td class="white">		</td><td class="white">		</td></tr>
+<tr><td class="white">		public void InitializeProvider (MonoDevelop.TaskForce.Data.ProviderData _providerNode)</td><td class="white">		public void InitializeProvider (MonoDevelop.TaskForce.Data.ProviderData _providerNode)</td></tr>
+<tr><td class="white">		{</td><td class="white">		{</td></tr>
+<tr><td class="red">			log.DEBUG("Initializing provider");</td><td class="white"></td></tr>
+<tr><td class="red">			providerNode = _providerNode;	</td><td class="white"></td></tr>
+<tr><td class="red">			</td><td class="white"></td></tr>
+<tr><td class="red">			if(providerNode == null)</td><td class="white"></td></tr>
+<tr><td class="red">			{</td><td class="white"></td></tr>
+<tr><td class="red">				log.ERROR( "Provider is null" );</td><td class="white"></td></tr>
+<tr><td class="red">				throw new NullReferenceException();				</td><td class="white"></td></tr>
+<tr><td class="red">			}</td><td class="white"></td></tr>
+<tr><td class="red">			</td><td class="white"></td></tr>
+<tr><td class="red">			providerNode.Label = "Bugzilla";</td><td class="white"></td></tr>
+<tr><td class="red">			</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">			log.ERROR("This function is deprecated and shouldn't be called");</td></tr>
+<tr><td class="white"></td><td class="green">			throw new InvalidOperationException();</td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white">		</td><td class="white">		</td></tr>
+<tr><td class="white">		public void NewTask (MonoDevelop.TaskForce.Data.ProviderData providerNode)</td><td class="white">		public void NewTask (MonoDevelop.TaskForce.Data.ProviderData providerNode)</td></tr>
+<tr><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td><td class="white">namespace MonoDevelop.TaskForce.BugzillaProvider</td></tr>
+<tr><td class="white">		</td><td class="white">		</td></tr>
+<tr><td class="white">		public void SeedDataForTesting (string seedString)</td><td class="white">		public void SeedDataForTesting (string seedString)</td></tr>
+<tr><td class="white">		{</td><td class="white">		{</td></tr>
+<tr><td class="white"></td><td class="green">			log.DEBUG("Seeding data for testing");</td></tr>
+<tr><td class="white">			for (int i = 0 ; i < 3; i++)</td><td class="white">			for (int i = 0 ; i < 3; i++)</td></tr>
+<tr><td class="white">			{</td><td class="white">			{</td></tr>
+<tr><td class="white">				TaskData taskNode = new TaskData();</td><td class="white">				TaskData taskNode = new TaskData();</td></tr>
+<tr><td class="white">				taskNode.CoreDataObject = new BugzillaTaskCore() as ICoreData;</td><td class="white">				taskNode.CoreDataObject = new BugzillaTaskCore() as ICoreData;</td></tr>
+<tr><td class="white">				taskNode.Label = seedString + i.ToString();</td><td class="white">				taskNode.Label = seedString + i.ToString();</td></tr>
+<tr><td class="white">				</td><td class="white">				</td></tr>
+<tr><td class="red">				providerNode.AddChildSilent(taskNode);</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">				providerNode.AddChild(taskNode);</td></tr>
+<tr><td class="white">			}</td><td class="white">			}</td></tr>
+<tr><td class="white">			</td><td class="white">			</td></tr>
+<tr><td class="red">			providerNode.TriggerUpdate();</td><td class="white"></td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white">		</td><td class="white">		</td></tr>
+<tr><td class="white">		public string SerializeToXML ()</td><td class="white">		public string SerializeToXML ()</td></tr>
+</table>
+
+
+ <b>Processing a chunk</b> 
+
+
+<table border="1">
+<tr><td class="white">namespace MonoDevelop.TaskForce.Data</td><td class="white">namespace MonoDevelop.TaskForce.Data</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">			NodeDataChangedEventArgs args = new NodeDataChangedEventArgs ();</td><td class="white">			NodeDataChangedEventArgs args = new NodeDataChangedEventArgs ();</td></tr>
+<tr><td class="white">			NodeDataChanged (this, args);</td><td class="white">			NodeDataChanged (this, args);</td></tr>
+<tr><td class="white"></td><td class="green">			</td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">		public virtual void SerializeData ()</td><td class="white">		public virtual void SerializeData ()</td></tr>
+</table>
+
+
+ <b>Processing a chunk</b> 
+
+
+<table border="1">
+<tr><td class="white">namespace MonoDevelop.TaskForce.Data</td><td class="white">namespace MonoDevelop.TaskForce.Data</td></tr>
+<tr><td class="white">			ExtensionNodeList nodes = AddinManager.GetExtensionNodes ("/MonoDevelop/TaskForce/Providers");</td><td class="white">			ExtensionNodeList nodes = AddinManager.GetExtensionNodes ("/MonoDevelop/TaskForce/Providers");</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">			log.INFO("Creating a new provider");</td></tr>
+<tr><td class="white">			// take nodes[0] by default</td><td class="white">			// take nodes[0] by default</td></tr>
+<tr><td class="red">			ProviderExtensionNode node = nodes[1] as ProviderExtensionNode;</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">			ProviderExtensionNode node = nodes[0] as ProviderExtensionNode;</td></tr>
+<tr><td class="white">			provider = (IProvider)Activator.CreateInstance (node.Class);</td><td class="white">			provider = (IProvider)Activator.CreateInstance (node.Class);</td></tr>
+<tr><td class="white"></td><td class="green">			</td></tr>
+<tr><td class="white"></td><td class="green">			</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+</table>
+
+
+ <b>Processing a chunk</b> 
+
+
+<table border="1">
+<tr><td class="white">namespace MonoDevelop.TaskForce.Data</td><td class="white">namespace MonoDevelop.TaskForce.Data</td></tr>
+<tr><td class="white">			ProviderData defaultProvider = new ProviderData ();</td><td class="white">			ProviderData defaultProvider = new ProviderData ();</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">			defaultProvider.provider.ConstructBasicProvider (defaultProvider);</td><td class="white">			defaultProvider.provider.ConstructBasicProvider (defaultProvider);</td></tr>
+<tr><td class="red">			defaultProvider.Label = "Tasks for " + ActiveSolution.Name;</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">			//defaultProvider.Label = "Tasks for " + ActiveSolution.Name;</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">			// Create some data in the provider first.</td><td class="white">			// Create some data in the provider first.</td></tr>
+<tr><td class="white">			// defaultProvider.provider.SeedDataForTesting("test_seed");</td><td class="white">			// defaultProvider.provider.SeedDataForTesting("test_seed");</td></tr>
+</table>
+
+
+ <b>Processing a chunk</b> 
+
+
+<table border="1">
+<tr><td class="white">namespace MonoDevelop.TaskForce.Gui.TaskPad</td><td class="white">namespace MonoDevelop.TaskForce.Gui.TaskPad</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="red">		public override void OnNodeDataChanged (MonoDevelop.TaskForce.Data.NodeData source, MonoDevelop.TaskForce.Data.NodeDataChangedEventArgs args)</td><td class="white"></td></tr>
+<tr><td class="red">		{</td><td class="white"></td></tr>
+<tr><td class="red">			if (source is ProviderData) {</td><td class="white"></td></tr>
+<tr><td class="red">				// get the tree builder</td><td class="white"></td></tr>
+<tr><td class="red">				ITreeBuilder treeBuilder = Context.GetTreeBuilder (source);</td><td class="white"></td></tr>
+<tr><td class="red">				treeBuilder.UpdateAll ();</td><td class="white"></td></tr>
+<tr><td class="red">			}</td><td class="white"></td></tr>
+<tr><td class="red">		}</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">		</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">		public override void Dispose ()</td><td class="white">		public override void Dispose ()</td></tr>
+<tr><td class="white">		{</td><td class="white">		{</td></tr>
+</table>
+
+
+ <b>Processing a chunk</b> 
+
+
+<table border="1">
+<tr><td class="white">namespace MonoDevelop.TaskForce.Gui.TaskPad</td><td class="white">namespace MonoDevelop.TaskForce.Gui.TaskPad</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">		}</td><td class="white">		}</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="red">		public override void OnNodeDataChanged (NodeData source, NodeDataChangedEventArgs args)</td><td class="white"></td></tr>
+<tr><td class="red">		{</td><td class="white"></td></tr>
+<tr><td class="red">			if (source is TaskData) {</td><td class="white"></td></tr>
+<tr><td class="red">				// get the tree builder</td><td class="white"></td></tr>
+<tr><td class="red">				ITreeBuilder treeBuilder = Context.GetTreeBuilder (source);</td><td class="white"></td></tr>
+<tr><td class="red">				treeBuilder.UpdateAll ();</td><td class="white"></td></tr>
+<tr><td class="red">			}</td><td class="white"></td></tr>
+<tr><td class="red">		}</td><td class="white"></td></tr>
+<tr><td class="white"></td><td class="green">		</td></tr>
+<tr><td class="white"></td><td class="white"></td></tr>
+<tr><td class="white">		public override void Dispose ()</td><td class="white">		public override void Dispose ()</td></tr>
+<tr><td class="white">		{</td><td class="white">		{</td></tr>
+</table>
