@@ -8,6 +8,8 @@ from core.forms import PatchForm
 from core.models import Patch
 import random
 
+from diffviewer.patchutils import PatchToHtml
+
 def index(request):
     """
     The Frontpage
@@ -28,7 +30,14 @@ def submit(request):
     if(request.method == "POST"):
         if("patchText" in request.POST):
             newPatch.diffText = request.POST["patchText"]
+            sampleChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            key = ''.join(random.sample(sampleChars, 6))
+            newPatch.urlCode = key
             
+            if(PatchToHtml(newPatch, newPatch.diffText)):
+                pass
+            else:
+                errorMessage = "Parsing patch failed :("
             # TODO: Convert to HTML            
         else:
             errorMessage = "Expecting patchText POST parameter"
@@ -42,15 +51,13 @@ def submit(request):
     
     if(errorMessage == ""): # No error        
         # Generate a primary key
-        sampleChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        key = ''.join(random.sample(sampleChars, 6))
-        newPatch.urlCode = key
+        
         
         # Save to database
         newPatch.save()
         
         # Redirect
-        return HttpResponseRedirect(reverse('patchbin.core.views.showpatch', args=(key,)))
+        return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=(key,)))
             
     return HttpResponse(errorMessage)
 

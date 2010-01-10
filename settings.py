@@ -78,4 +78,5 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'patchbin.core',
+    'patchbin.diffviewer',
 )

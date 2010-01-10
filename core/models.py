@@ -6,5 +6,14 @@ class Patch(models.Model):
     diffText = models.TextField()
     diffHTML = models.TextField()
     
-    def __string__(self):
-        return diffText
+class Chunk(models.Model):
+    patch = models.ForeignKey(Patch)
+    originalFile = models.CharField(max_length = 50)
+    newFile = models.CharField(max_length = 50)
+    chunkText = models.TextField()
+    chunkHtml = models.TextField()
+    
+class Comment(models.Model):
+    chunk = models.ForeignKey(Chunk)
+    commentText = models.TextField()
+    commentLine = models.IntegerField()

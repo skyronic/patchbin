@@ -8,5 +8,5 @@ urlpatterns = patterns('',
     (r'^$', 'patchbin.core.views.index'),
     (r'^submit$', 'patchbin.core.views.submit'),
     (r'^admin/', include(admin.site.urls)),
-    (r'^(?P<urlCode>[A-Za-z0-9]{6})$', 'patchbin.core.views.showpatch')
+    (r'^(?P<urlCode>[A-Za-z0-9]{6})$', 'patchbin.diffviewer.views.showpatch')
 )
