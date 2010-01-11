@@ -67,8 +67,8 @@ def split_into_chunks(patch):
           
     return chunks
 
-def html_table_row(lhs, rhs, style1, style2, line1, line2):
-    output = '<tr><th>' + line1 + '</th><td class="'+ style1 + '" id="old-' + line1 + '"><pre>' + lhs + '</pre></td><th>' + line2 + '</th><td class="' + style2 + '" id="new-' + line2 + '"><pre>' + rhs + '</pre></td></tr>'
+def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex):
+    output = '<tr><th>' + line1 + '</th><td class="'+ style1 + '" id="lhs-' + str(chunkIndex) + '-' + line1 + '"><pre>' + lhs + '</pre></td><th>' + line2 + '</th><td class="' + style2 + '" id="rhs-' + str(chunkIndex) + '-' + line2 + '"><pre>' + rhs + '</pre></td></tr>'
     return output
     
 
@@ -76,12 +76,13 @@ def convert_to_html(chunk):
     differ = diff_match_patch()
     patches = differ.patch_fromText(chunk)
     content = ''
+    chunkIndex = 0
     for patch in patches:
-        line1 = patch.start1 - 1
-        line2 = patch.start2 - 1
+        chunkIndex += 1
+        line1 = patch.start1
+        line2 = patch.start2
         for line in patch.diffs:
-            line1 = line1 + 1
-            line2 = line2 + 1
+            
             action = line[0]
             text = line[1]
             if(text == '\n' or text == ''):
@@ -92,11 +93,17 @@ def convert_to_html(chunk):
             line2s = str(line2)
             
             if(action == 0):
-                result = html_table_row(text, text, 'whiteback', 'whiteback', line1s, line2s)
+                line1 = line1 + 1
+                line2 = line2 + 1
+                result = html_table_row(text, text, 'whiteback', 'whiteback', line1s, line2s, chunkIndex)
             if(action == 1):
-                result = html_table_row('', text, 'grayback', 'greenback', line1s, line2s)
+                line2 = line2 + 1
+                line1s = ''
+                result = html_table_row('', text, 'grayback', 'greenback', line1s, line2s, chunkIndex)
             if(action == -1):
-                result = html_table_row(text, '', 'redback', 'grayback', line1s, line2s)
+                line1 = line1 + 1
+                line2s = ''
+                result = html_table_row(text, '', 'redback', 'grayback', line1s, line2s, chunkIndex)
             content = content + result + '\n'
     return content
     
@@ -129,10 +136,13 @@ def PatchToHtml(parent, patchText):
         return False
     
     # process one chunk at a time
+    chunkIndex = 0
     for chunk in chunks:
         # Database objects
+        chunkIndex += 1
         dbChunk = Chunk()
         dbChunk.patch = parent
+        dbChunk.chunkNum = chunkIndex
         
         try:
             pChunk = process_chunk(chunk)
