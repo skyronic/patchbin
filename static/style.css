@@ -13,10 +13,16 @@ pre
     font-weight: normal;
     padding: 0 0.6em;
     text-align: right;
+    vertical-align:top;
 }
 .diff td
 {
-    padding-left:4px;
+    padding-left:1px;
+    vertical-align:top;
+}
+.diff pre
+{
+    margin-bottom:0;
 }
 .whiteback
 {
@@ -35,3 +41,38 @@ pre
     background: #FF8888 none repeat scroll 0 0;
 }
 
+.commentform
+{
+    background:#FFFFAA none repeat scroll 0 0;
+    padding-left: 1em;
+    border:1px solid #999999;
+}
+.commentform textarea
+{
+    width:80%;
+    height:150px;
+}
+.commentform input
+{
+    width:65%;
+}
+
+.commentText
+{
+    background:#FFFFAA none repeat scroll 0 0;
+    padding-left: 1em;
+    border:1px solid #999999;
+}
+
+.commentText p
+{
+    margin-top:5px;
+    margin-bottom:5px;
+    font-family:arial, sans-serif;
+    font-size: 0.9em;
+}
+.commentText pre
+{
+    margin-top:4px;
+    margin-bottom:4px;
+}

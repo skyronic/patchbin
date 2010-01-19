@@ -23,7 +23,7 @@ function replyToComment(e)
 {
 	var targetCell = $(this).parents("td")[0];
 	console.log("Target cell is: ", targetCell);
-	commentContent = $(this.parentNode).siblings("p.commentContent")[0].innerHTML;
+	commentContent = $(this.parentNode).siblings("pre.commentContent")[0].innerHTML;
 	commentAuthor = $(this.parentNode).siblings("p.commentAuthor")[0].innerHTML;
 
 	replyString = "";
@@ -65,8 +65,8 @@ function addCommentToDiffElement(id, commentIndex, author, content)
 	{
 		commentDiv = document.createElement("div");
 		commentDiv.innerHTML = '<div class="commentText"><p class="commentAuthor">'
-			+ author + ' Said:</p><p class="commentContent">' + content +
-			'</p><p>[<a href="#">Reply</a>]</p></div>';
+			+ author + ' Said:</p><pre class="commentContent">' + content +
+			'</pre><p>[<a href="#">Reply</a>]</p></div>';
 
 		appendDivToDiffLine(idString, commentDiv);
 
