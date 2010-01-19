@@ -74,7 +74,17 @@ function diffLineIdFromParams(side, chunkNum, line)
 
 function elementParamsFromDiffId(idString)
 {
-
+    // Check validity from id String
+    if(idString.match(/^(lhs|rhs){1}-\d{1,3}-\d{1,3}$/))
+    {
+        components = idString.split('-');
+        var params = { side:components[0], chunk:components[1], line:components[2]};
+        return params;
+    }
+    else
+    {
+        return null;
+    }
 }
 
 /*
@@ -102,11 +112,19 @@ function postCommentFromForm(e)
 		postURL = currentUrl + "/newcomment";
 
         var diffElement = $(commentDiv).parents("td")[0];
+
+        // Get the parameters of the element
+        elemParams = elementParamsFromDiffId(diffElement.id);
+        if(elemParams!=null)
+        {
+
+        var POSTData = {
+name:commentName ,message:commentString,side:elemParams.side,
+     chunk:elemParams.chunk, line:elemParams.line
+				};
         
-		$.post(postURL,
-				{
-					name:commentName ,message:commentString,
-				}, function(data)
+		$.post(postURL, POSTData,
+				 function(data)
 				{
 					console.log("Recieved data: ", data);
 
@@ -124,6 +142,7 @@ function postCommentFromForm(e)
                         submitButton.disabled = false;
 					}
 				});
+        }
 	}
 }
 

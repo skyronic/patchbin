@@ -28,11 +28,21 @@ def showpatch(request, urlCode):
 def newcomment(request, urlCode):
     """Adds a new comment to the database"""
     output = "OK"
-    if(request.method == "POST"):
-        name = request.POST["name"]
-        message = request.POST["message"]
-        print "Recieved a request: " + name + message
-    else:
+    try:
+        if(request.method == "POST"):
+            name = request.POST["name"]
+            message = request.POST["message"]
+            side = request.POST["side"]
+            chunk = int(request.POST["chunk"])
+            line = int(request.POST["line"])
+            
+            # basic sanity check
+            if(not (side == 'lhs' or side == 'rhs')):
+                output = "ERROR"
+            else:
+                pass
+        else:
+            output = "ERROR"
+    except:
         output = "ERROR"
-
     return HttpResponse(output)
