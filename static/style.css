@@ -1,0 +1,37 @@
+pre
+{
+    font-size: 110%;
+    white-space: pre-wrap;
+}
+.diff
+{
+    padding-left:4px
+}
+.diff th
+{
+    color:#666666;
+    font-weight: normal;
+    padding: 0 0.6em;
+    text-align: right;
+}
+.diff td
+{
+    padding-left:4px;
+}
+.whiteback
+{
+    background: #FFFFFF none repeat scroll 0 0;
+}
+.grayback
+{
+    background: #EEEEEE none repeat scroll 0 0;
+}
+.greenback
+{
+    background: #99FF99 none repeat scroll 0 0;
+}
+.redback
+{
+    background: #FF8888 none repeat scroll 0 0;
+}
+
