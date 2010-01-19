@@ -186,12 +186,14 @@ function commentFormAtDiv(element, content)
 
 function drawCommentForm (e)
 {
-	console.log('Drawing comment form');
-	console.log(e);
-	console.log(this);
-
-	commentFormAtDiv(this, "");
-	//$(this.parentNode).after("<tr><th></th><td>hi there</td><th></th><td></td></tr>");
+	if($(this).hasClass("comentform") || $(this).hasClass("commentText"))
+	{
+		// ignore
+	}
+	else
+	{
+		commentFormAtDiv(this, "");
+	}
 }
 
 $(document).ready(main);

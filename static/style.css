@@ -44,8 +44,9 @@ pre
 .commentform
 {
     background:#FFFFAA none repeat scroll 0 0;
-    padding-left: 1em;
+    padding-left: 0.8em;
     border:1px solid #999999;
+    font-size:0.8em;
 }
 .commentform textarea
 {
@@ -69,7 +70,7 @@ pre
     margin-top:5px;
     margin-bottom:5px;
     font-family:arial, sans-serif;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 .commentText pre
 {
