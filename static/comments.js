@@ -20,6 +20,9 @@ function appendDivToDiffLine(id, contentDiv)
  */
 function replyToComment(e)
 {
+	var targetCell = $(this).parents("td")[0];
+	console.log("Target cell is: ", targetCell);
+
 
 }
 
@@ -31,7 +34,7 @@ function addCommentToDiffLine(side, chunkNum, line, commentIndex, author, conten
 		commentDiv = document.createElement("div");
 		commentDiv.innerHTML = '<div class="commentText"><p class="commentAuthor">'
 			+ author + ' Said:</p><p class="commentContent">' + content +
-			'</p><p>[<a>Reply</a>]</p></div>';
+			'</p><p>[<a href="#">Reply</a>]</p></div>';
 
 		appendDivToDiffLine(idString, commentDiv);
 		$(commentDiv).find("a").bind("click", {commentElement:commentDiv}, replyToComment);
@@ -59,14 +62,8 @@ function postCommentFromForm(e)
 	}
 }
 
-function drawCommentForm (e)
+function commentFormAtDiv(element)
 {
-	console.log('Drawing comment form');
-	console.log(e);
-	console.log(this);
-	
-
-	//$(this.parentNode).after("<tr><th></th><td>hi there</td><th></th><td></td></tr>");
 	commentFormDiv = document.createElement("div");
 	commentID = 0;
 	commentFormDiv.id = this.id + "-comment-" + commentID;
@@ -84,6 +81,17 @@ function drawCommentForm (e)
 
 	// Find the submit button and hook to the click event
 	$(this).find('button').bind('click', {commentDiv:commentFormDiv}, postCommentFromForm);
+
+}
+
+function drawCommentForm (e)
+{
+	console.log('Drawing comment form');
+	console.log(e);
+	console.log(this);
+
+
+	//$(this.parentNode).after("<tr><th></th><td>hi there</td><th></th><td></td></tr>");
 }
 
 $(document).ready(main);
