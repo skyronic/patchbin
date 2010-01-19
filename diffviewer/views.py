@@ -23,3 +23,16 @@ def showpatch(request, urlCode):
         'chunks':chunks,
         })
     return HttpResponse(template.render(context))
+
+
+def newcomment(request, urlCode):
+    """Adds a new comment to the database"""
+    output = "OK"
+    if(request.method == "POST"):
+        name = request.POST["name"]
+        message = request.POST["message"]
+        print "Recieved a request: " + name + message
+    else:
+        output = "ERROR"
+
+    return HttpResponse(output)

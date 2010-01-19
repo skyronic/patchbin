@@ -61,13 +61,4 @@ def submit(request):
             
     return HttpResponse(errorMessage)
 
-def showpatch(request, urlCode):
-    """
-    Shows the patch
-    """
-    patch = get_object_or_404(Patch, pk=urlCode)
-    template = loader.get_template('core/showpatch.html')
-    context = Context({
-        'patchText' : patch.diffText,
-        })
-    return HttpResponse(template.render(context))
+
