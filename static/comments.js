@@ -38,16 +38,16 @@ function addCommentToDiffLine(side, chunkNum, line, commentIndex, author, conten
 	idString = diffLineIdFromParams(side, chunkNum, line);
 	if(idString != "error")
 	{
-		addCommentToDiffElement(idString, commentIndex, content);
+		addCommentToDiffElement(idString, commentIndex, author, content);
 	}
 }
 
 /*
  * Adds the actual div into the DOM. Extracted from addCommentToDiffLine.
  */
-function addCommentToDiffElement(id, author, content)
+function addCommentToDiffElement(id, commentIndex, author, content)
 {
-	idString = diffLineIdFromParams(side, chunkNum, line);
+	idString = id;
 	if(idString != "error")
 	{
 		commentDiv = document.createElement("div");
@@ -61,6 +61,9 @@ function addCommentToDiffElement(id, author, content)
 	}
 }
 
+/*
+ * Gets a valid ID from the parameters
+ */
 function diffLineIdFromParams(side, chunkNum, line)
 {
 	idString = side + "-" + chunkNum + "-" + line;
@@ -68,6 +71,16 @@ function diffLineIdFromParams(side, chunkNum, line)
 		return idString;
 	return "error";
 }
+
+function elementParamsFromDiffId(idString)
+{
+
+}
+
+/*
+ * Sends the XHR Request to the server and also handles the response.
+ *
+ */
 function postCommentFromForm(e)
 {
 	// get the container div
@@ -81,12 +94,15 @@ function postCommentFromForm(e)
 
 		// Disable the button
 		this.disabled = true;
+        submitButton = this;
 
 		// Do an AJAX POST request to the current URL + newcomment
 		// neat trick to extract everything before the hashtag
 		currentUrl = document.location.href.split("#")[0];
 		postURL = currentUrl + "/newcomment";
 
+        var diffElement = $(commentDiv).parents("td")[0];
+        
 		$.post(postURL,
 				{
 					name:commentName ,message:commentString,
@@ -99,15 +115,21 @@ function postCommentFromForm(e)
 						// first, remove the comment div:
 						$(commentDiv).hide();
 
+                        // TODO: Change the value of comment ID
+                        addCommentToDiffElement(diffElement.id, 0, commentName, commentString);
 					}
 					else if(data == "ERROR")
 					{
 						alert("Something went wrong with saving your comment. Please try again later");
+                        submitButton.disabled = false;
 					}
 				});
 	}
 }
 
+/*
+ *
+ */
 function commentFormAtDiv(element)
 {
 	commentFormDiv = document.createElement("div");
