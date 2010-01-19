@@ -26,22 +26,25 @@ function replyToComment(e)
 
 }
 
+
+/*
+ * Adds a comment to the diff line in the table when the side,
+ * and the line number, etc are specified. This is prolly going
+ * to be useful when the server knows only the side, chunk, line, etc
+ * and spits out the parameters into the javascript.
+ */
 function addCommentToDiffLine(side, chunkNum, line, commentIndex, author, content)
 {
 	idString = diffLineIdFromParams(side, chunkNum, line);
 	if(idString != "error")
 	{
-		commentDiv = document.createElement("div");
-		commentDiv.innerHTML = '<div class="commentText"><p class="commentAuthor">'
-			+ author + ' Said:</p><p class="commentContent">' + content +
-			'</p><p>[<a href="#">Reply</a>]</p></div>';
-
-		appendDivToDiffLine(idString, commentDiv);
-
-		$(commentDiv).find("a").bind("click", {commentElement:commentDiv}, replyToComment);
+		addCommentToDiffElement(idString, commentIndex, content);
 	}
 }
 
+/*
+ * Adds the actual div into the DOM. Extracted from addCommentToDiffLine.
+ */
 function addCommentToDiffElement(id, author, content)
 {
 	idString = diffLineIdFromParams(side, chunkNum, line);
@@ -95,6 +98,7 @@ function postCommentFromForm(e)
 					{
 						// first, remove the comment div:
 						$(commentDiv).hide();
+
 					}
 					else if(data == "ERROR")
 					{
