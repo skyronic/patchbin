@@ -1,9 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<html>
-    <head>
-        <title>A Patch!</title>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
-        <script type="text/javascript" src="../static/comments.js"></script>
+{% extends "core/base.html" %}
+
+
+{% block title %}A Patch!{% endblock %}
+
+{% block head %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+<script type="text/javascript" src="{{ static_path }}/comments.js"></script>
         <script type="text/javascript">
             // Load all the comments
 function LoadComments()
@@ -19,10 +21,11 @@ function LoadComments()
     {% endfor %}
 }
         </script>
-        <link rel="stylesheet" href="../static/style.css">
-    </head>
-    <body>
-        <div id="patchDisplay">
+        <link rel="stylesheet" href="{{ static_path }}/comments.css">
+{% endblock %}
+
+{% block content %}
+<div id="patchDisplay">
             {% for chunk in chunks %}
             <h3>File - {{ chunk.newFile }}</h3>
             <p>
@@ -48,5 +51,4 @@ function LoadComments()
             </p>
             {% endfor %}
         </div>
-    </body>
-</html>
+{% endblock %}

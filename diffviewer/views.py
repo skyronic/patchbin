@@ -29,8 +29,10 @@ def showpatch(request, urlCode):
 
     context = Context({
         'chunks':chunks,
-        'comments':comments
-        })
+        'comments':comments,
+        'url_root': 'http://127.0.0.1:8000',
+        'static_path':'http://127.0.0.1:8000/static'
+    })
     return HttpResponse(template.render(context))
 
 def javaScriptEscape(input):

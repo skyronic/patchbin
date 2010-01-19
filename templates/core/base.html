@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+<head profile="http://gmpg.org/xfn/11">
+  <title>{% block title %}Patchbin{% endblock %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link rel="stylesheet" href="{{ static_path }}/styles/layout.css" type="text/css" />
+{% block head %} {% endblock %}
+</head>
+<body id="top">
+<div class="wrapper col1">
+  <div id="header">
+    <div id="logo">
+      <h1><a href="{{ url_root }}">Patchbin</a></h1>
+      <p>Share and collaborate on patches</p>
+    </div>
+    <div id="banner"><a href="#"><img src="{{ static_path }}/images/demo/468x60.gif" alt="" /></a></div>
+    <br class="clear" />
+  </div>
+</div>
+<div class="wrapper col2">
+  <div id="topbar">
+    <div id="search">
+      <ul>
+        <li>Use patchbin to share patches and collaborate</li>
+        <li class="last">easily with fellow hackers.</li>
+      </ul>
+      <form action="#" method="post">
+        <fieldset>
+        <legend>Site Search</legend>
+        <input type="text" value="Search the site(DISABLED)&hellip;"  onfocus="this.value=(this.value=='Search the site&hellip;')? '' : this.value ;" />
+        <input type="submit" name="go" id="go" value="GO" />
+        </fieldset>
+      </form>
+    </div>
+    <div id="topnav">
+      <ul>
+        <li><a href="index.html">Github</a>
+          <ul>
+            <li><a href="#">Patchbin's code is open</a></li>
+            <li><a href="#">source (MIT/X11). You</a></li>
+            <li><a href="#">should fork it on github.</a></li>
+          </ul>
+        </li>
+        <li><a href="style-demo.html">Contribute</a>
+          <ul>
+            <li><a href="#">Want to help improve</a></li>
+            <li><a href="#">patchbin, send us your</a></li>
+            <li><a href="#">(wait for it) patches</a></li>
+          </ul>
+        </li>
+        <li><a href="full-width.html">Sponsor</a>
+          <ul>
+            <li><a href="#">Help with the hosting</a></li>
+            <li><a href="#">costs by donating or</a></li>
+            <li><a href="#">sponsoring hosting.</a></li>
+          </ul>
+        </li>
+        <li class="last"><a href="#">About</a>
+          <ul>
+            <li><a href="#">Find out more about</a></li>
+            <li><a href="#">patchbin, the author,</a></li>
+            <li><a href="#">and the code.</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<div class="wrapper col3">
+  <div id="breadcrumb">
+    <ul>
+      <li class="first">You Are Here</li>
+      <li>&#187;</li>
+      <li><a href="#">Home</a></li>
+      <li>&#187;</li>
+      <li><a href="#">Grand Parent</a></li>
+      <li>&#187;</li>
+      <li><a href="#">Parent</a></li>
+      <li>&#187;</li>
+      <li class="current"><a href="#">Child</a></li>
+    </ul>
+  </div>
+</div>
+<div class="wrapper col4">
+  <div id="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+</div>
+<div class="wrapper col5">
+  <div id="footer">
+    <div class="footbox">
+      <h2>Stay In The Know !</h2>
+      <p>Please enter your email to join our mailing list</p>
+      <form action="#" method="post">
+        <fieldset>
+        <legend>News Letter</legend>
+        <input type="text" value="Enter Email Here&hellip;"  onfocus="this.value=(this.value=='Enter Email Here&hellip;')? '' : this.value ;" />
+        <input type="submit" name="news_go" id="news_go" value="GO" />
+        </fieldset>
+      </form>
+      <p>To unsubscribe please <a href="#">click here &raquo;</a></p>
+    </div>
+    <div class="footbox">
+      <h2>Further Information !</h2>
+      <ul>
+        <li><a href="#">Business Terms &amp; Conditions &raquo;</a></li>
+        <li><a href="#">Disability Philosophy &raquo;</a></li>
+        <li class="last"><a href="#">Contact Our Company &raquo;</a></li>
+      </ul>
+    </div>
+    <div class="footbox last">
+      <h2>Company Details !</h2>
+      <address>
+      Company Name<br />
+      Street Name &amp; Number<br />
+      Town<br />
+      Postcode/Zip<br />
+      </address>
+      Tel: xxxxx xxxxxxxxxx
+      <!-- -->
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<div class="wrapper col6">
+  <div id="copyright">
+    <p class="fl_left">Copyright &copy; 2010 - All Rights Reserved - <a href="#">Domain Name</a></p>
+    <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Open Source Templates">OS Templates</a></p>
+    <br class="clear" />
+  </div>
+</div>
+</body>
+</html>

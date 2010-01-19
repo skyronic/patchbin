@@ -18,6 +18,9 @@ def index(request):
     Form = PatchForm()
     context = Context({
         'patch_form':Form,
+        'url_root': 'http://127.0.0.1:8000',
+        'static_path':'http://127.0.0.1:8000/static'
+
         })
     return HttpResponse(template.render(context))
 

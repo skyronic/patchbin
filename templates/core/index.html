@@ -1,11 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<html>
-<head>
-<meta name="generator" content=
-"HTML Tidy for Linux/x86 (vers 7 December 2008), see www.w3.org">
-<title>Patchbin!</title>
-</head>
-<body>
+{% extends "core/base.html" %}
+{% block title %}Patchbin! Welcome {% endblock %}
+
+{% block content %}
     <form id="patchForm" method="POST" action="/submit">
         <div>
             <p>Patch:</p>
@@ -16,5 +12,4 @@
             <p><input type="submit" value="Submit!"></input></p>
         </div>
     </form>
-</body>
-</html>
+{% endblock %}
