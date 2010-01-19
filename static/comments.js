@@ -1,8 +1,19 @@
 // Comments javascript file
 
+
+
 function main()
 {
 	// Register all the valid lines for commentary
+	if(typeof(console) == "undefined") // No firebug :(
+	{
+		console = {
+log:function(string, args, args)
+	{
+		// Do nothing
+	}
+		};
+	}
 	$("td.whiteback").bind("dblclick", drawCommentForm);
 	$("td.redback").bind("dblclick", drawCommentForm);
 	$("td.greenback").bind("dblclick", drawCommentForm);
