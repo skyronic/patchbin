@@ -16,5 +16,10 @@ class Chunk(models.Model):
     
 class Comment(models.Model):
     chunk = models.ForeignKey(Chunk)
+    chunkID = models.IntegerField() # we can just use chunk.chunkNum
+    # But this seems to be more efficient
+    commentID = models.IntegerField()
+    commentAuthor = models.CharField(max_length = 30)
     commentText = models.TextField()
     commentLine = models.IntegerField()
+    diffSide = models.CharField(max_length = 5)

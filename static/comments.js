@@ -6,7 +6,8 @@ function main()
 	$("td.whiteback").bind("dblclick", drawCommentForm);
 	$("td.redback").bind("dblclick", drawCommentForm);
 	$("td.greenback").bind("dblclick", drawCommentForm);
-	addCommentToDiffLine('lhs', '2', '75', '1', 'Anirudh', "Hey There!");
+	// addCommentToDiffLine('lhs', '2', '75', '1', 'Anirudh', "Hey There!");
+    LoadComments();
 }
 
 function appendDivToDiffLine(id, contentDiv)
@@ -23,6 +24,7 @@ function replyToComment(e)
 	var targetCell = $(this).parents("td")[0];
 	console.log("Target cell is: ", targetCell);
 	commentFormAtDiv(targetCell);
+
 
 }
 
