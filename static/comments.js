@@ -23,7 +23,18 @@ function replyToComment(e)
 {
 	var targetCell = $(this).parents("td")[0];
 	console.log("Target cell is: ", targetCell);
-	commentFormAtDiv(targetCell);
+	commentContent = $(this.parentNode).siblings("p.commentContent")[0].innerHTML;
+	commentAuthor = $(this.parentNode).siblings("p.commentAuthor")[0].innerHTML;
+
+	replyString = "";
+	commentLines = commentContent.split('\n');
+	for(commentindex in commentLines)
+	{
+		replyString += "> " + commentLines[commentindex] + "\n";
+	}
+	commentFormAtDiv(targetCell, replyString);
+
+	
 
 
 }
@@ -151,12 +162,12 @@ name:commentName ,message:commentString,side:elemParams.side,
 /*
  *
  */
-function commentFormAtDiv(element)
+function commentFormAtDiv(element, content)
 {
 	commentFormDiv = document.createElement("div");
 	commentID = 0;
 	commentFormDiv.id = element.id + "-comment-" + commentID;
-	commentFormDiv.innerHTML = '<div id="" class=""><p>Name: <input type="text" id="" /></p><p><textarea></textarea></p><p><button>Submit!</button></div>';
+	commentFormDiv.innerHTML = '<div id="" class=""><p>Name: <input type="text" id="" /></p><p><textarea>' + content + '</textarea></p><p><button>Submit!</button></div>';
 	$(commentFormDiv).addClass("commentform");
 
 	if($(commentFormDiv).hasClass("whiteback"))
@@ -179,7 +190,7 @@ function drawCommentForm (e)
 	console.log(e);
 	console.log(this);
 
-	commentFormAtDiv(this);
+	commentFormAtDiv(this, "");
 	//$(this.parentNode).after("<tr><th></th><td>hi there</td><th></th><td></td></tr>");
 }
 

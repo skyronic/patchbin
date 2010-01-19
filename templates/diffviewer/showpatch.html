@@ -49,7 +49,7 @@ function LoadComments()
 {
     {% for comment in comments %}
     addCommentToDiffLine(
-            '{{ comment.diffSide }}'
+            '{{ comment.diffSide|safe }}'
             , '{{ comment.chunkID }}',
             '{{ comment.commentLine }}',
             '{{ comment.commentID }}',
