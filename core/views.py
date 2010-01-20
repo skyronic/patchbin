@@ -36,6 +36,9 @@ def submit(request):
             sampleChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             key = ''.join(random.sample(sampleChars, 6))
             newPatch.urlCode = key
+
+            secret = ''.join(random.sample(sampleChars, 16))
+            newPatch.secretKey = secret
             
             if(PatchToHtml(newPatch, newPatch.diffText)):
                 pass
@@ -45,20 +48,51 @@ def submit(request):
         else:
             errorMessage = "Expecting patchText POST parameter"
         if("description" in request.POST):
-            newPatch.description = request.POST['description']
+            newPatch.patchDesc = request.POST['description']
+        else:
+            newPatch.patchDesc = ""
         
         if("emailAddress" in request.POST):
-            newPatch.emailAddress = request.POST['emailAddress']
+            newPatch.authorEmail = request.POST['emailAddress']
+        else:
+            newPatch.authorEmail = ""
+
+        if("emailNotify" in request.POST):
+            print "Email notify is " + request.POST['emailAddress']
+            newPatch.emailNotify = 0
+        else:
+            newPatch.emailNotify = 0
     else:
         errorMessage = "POST Requests only, please :)"
     
     if(errorMessage == ""): # No error        
-        # Generate a primary key
-        
-        
         # Save to database
         newPatch.save()
-        
+
+        # Make an email to send out
+        if(newPatch.authorEmail):
+            subject = 'New Patchbin patch!'
+            message = """
+            Hi!
+
+            Thanks for using patchbin!
+
+            You can view and share your patch with the URL:
+                ##PATCH_URL##
+
+            To delete your patch, visit:
+                ##PATCH_DELETE##
+
+            In the event you want to delete any comment, use this link to moderate:
+                ##PATCH_COMMENT##
+
+            Thanks!
+            Patchbot P-)
+            """
+            
+
+            # TODO: Process message
+            send_mail(subject, message, 'andy@ninjagod.com', [newPatch.authorEmail])
         # Redirect
         return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=(key,)))
             

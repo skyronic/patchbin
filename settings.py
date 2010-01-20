@@ -48,14 +48,19 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'y+a#11dd&h90ifw)*b&#77@g@^j)kx!ddpru8#ft+l3(%cf8d*'
-
+SECRET_KEY = private.secretkey 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
 )
+
+EMAIL_HOST = private.emailhost
+EMAIL_PORT = private.emailport
+EMAIL_HOST_USER = private.emailhostuser
+EMAIL_HOST_PASSWORD = private.emailhostpassword
+EMAIL_USE_TLS = False
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
