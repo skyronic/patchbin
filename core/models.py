@@ -5,6 +5,10 @@ class Patch(models.Model):
     urlCode = models.CharField(max_length=6, primary_key=True, db_column='urlcode')
     diffText = models.TextField()
     diffHTML = models.TextField()
+    authorName = models.CharField(max_length=50)
+    authorEmail = models.CharField(max_length=50)
+    patchDesc = models.TextField()
+    secretKey = models.CharField(max_length = 16)
     
 class Chunk(models.Model):
     patch = models.ForeignKey(Patch)
