@@ -4,12 +4,19 @@
 {% block content %}
     <form id="patchForm" method="POST" action="/submit">
         <div>
-            <p>Patch:</p>
+            <h2>Patch:</h2>
             <p>
-            <textarea name="patchText" rows="25" cols="80"></textarea>
+            <textarea name="patchText" rows="25" cols="90"></textarea>
             </p>
-
-            <p><input type="submit" value="Submit!"></input></p>
+            <p><input type="submit" value="Submit!"/></p>
+            <h2>Optional fields:</h2>
+            <p>Description</p>
+            <textarea name="patchDesc" rows="5" cols = "90"></textarea>
+            <p>Name</p>
+            <input type="text" name="authorName" />
+            <p>Email (Not displayed publicly) - required for deleting comments and patch</p>
+            <input type="text" name="authorEmail" />
+            <p><input type="checkbox" name="emailNotify">Notify me of new comments via email</p>
         </div>
     </form>
 {% endblock %}

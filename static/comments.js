@@ -44,10 +44,6 @@ function replyToComment(e)
 		replyString += "> " + commentLines[commentindex] + "\n";
 	}
 	commentFormAtDiv(targetCell, replyString);
-
-	
-
-
 }
 
 
