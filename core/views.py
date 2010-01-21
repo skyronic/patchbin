@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template import Context, loader
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
 from core.forms import PatchForm
 from core.models import Patch
 import random
@@ -53,12 +54,10 @@ def submit(request):
             newPatch.patchDesc = ""
         
         if("emailAddress" in request.POST):
-            newPatch.authorEmail = request.POST['emailAddress']
-        else:
-            newPatch.authorEmail = ""
+            if(request.POST['emqilAddress'] != ""):
+                newPatch.authorEmail = request.POST['emailAddress']
 
         if("emailNotify" in request.POST):
-            print "Email notify is " + request.POST['emailAddress']
             newPatch.emailNotify = 0
         else:
             newPatch.emailNotify = 0
@@ -67,6 +66,7 @@ def submit(request):
     
     if(errorMessage == ""): # No error        
         # Save to database
+        newPatch.authorName = 'andy'
         newPatch.save()
 
         # Make an email to send out
@@ -89,10 +89,8 @@ def submit(request):
             Thanks!
             Patchbot P-)
             """
+            # Do not send a mail right now
             
-
-            # TODO: Process message
-            send_mail(subject, message, 'andy@ninjagod.com', [newPatch.authorEmail])
         # Redirect
         return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=(key,)))
             

@@ -9,7 +9,7 @@ class Patch(models.Model):
     authorEmail = models.CharField(max_length=50)
     patchDesc = models.TextField()
     secretKey = models.CharField(max_length = 16)
-    emailNotify = models.IntegerField(null = True)
+    emailNotify = models.IntegerField()
     
 class Chunk(models.Model):
     patch = models.ForeignKey(Patch)
