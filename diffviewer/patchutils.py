@@ -8,7 +8,7 @@ from core.models import Chunk, Comment, Patch
 def split_into_chunks(patch):
     chunks = []
     # Split into lines
-    lines = patch.split('\n')
+    lines = patch.split('\r\n')
     
     chunk = ''
     originalFile = ''
@@ -64,7 +64,13 @@ def split_into_chunks(patch):
                     newline = line[match.end():]
                     chunk = chunk + chunkspec + '\n'
                     chunk = chunk + newline + '\n'
-          
+    # Write the final chunkj
+    if(chunkMode):
+        # Write the chunk
+        currentChunk = (newFile, originalFile, chunk)
+        chunks.append(currentChunk)
+
+    print "Finally extracted " + str(chunks)
     return chunks
 
 def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex):
@@ -72,13 +78,11 @@ def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex):
     return output
     
 
-def convert_to_html(chunk):
+def convert_to_html(chunk, chunkIndex):
     differ = diff_match_patch()
     patches = differ.patch_fromText(chunk)
     content = ''
-    chunkIndex = 0
     for patch in patches:
-        chunkIndex += 1
         line1 = patch.start1
         line2 = patch.start2
         for line in patch.diffs:
@@ -116,8 +120,8 @@ def process_header_string(header):
     # For now, just strip out the first 4 characters
     return header[4:]
 
-def process_chunk(chunk):
-    chunkHTML = convert_to_html(chunk[2])
+def process_chunk(chunk, chunkIndex):
+    chunkHTML = convert_to_html(chunk[2], chunkIndex)
     newFile = process_header_string(chunk[0])
     oldFile = process_header_string(chunk[1])
     
@@ -145,7 +149,7 @@ def PatchToHtml(parent, patchText):
         dbChunk.chunkNum = chunkIndex
         
         try:
-            pChunk = process_chunk(chunk)
+            pChunk = process_chunk(chunk, chunkIndex)
         except:
             print "Processing chunk failed"
             # processing into chunk failed

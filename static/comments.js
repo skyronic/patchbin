@@ -95,7 +95,7 @@ function diffLineIdFromParams(side, chunkNum, line)
 function elementParamsFromDiffId(idString)
 {
     // Check validity from id String
-    if(idString.match(/^(lhs|rhs){1}-\d{1,3}-\d{1,3}$/))
+    if(idString.match(/^(lhs|rhs){1}-\d{1,3}-\d{1,4}$/))
     {
         components = idString.split('-');
         var params = { side:components[0], chunk:components[1], line:components[2]};
@@ -163,6 +163,10 @@ name:commentName ,message:commentString,side:elemParams.side,
 					}
 				});
         }
+	else
+	{
+	 console.log('elemparams is null, uh oh');
+	}
 	}
 }
 

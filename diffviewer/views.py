@@ -46,6 +46,7 @@ def javaScriptEscape(input):
 def newcomment(request, urlCode):
     """Adds a new comment to the database"""
     output = "OK"
+    debugvar = 0
     try:
         if(request.method == "POST"):
             name = request.POST["name"]
@@ -62,7 +63,10 @@ def newcomment(request, urlCode):
                 output = "ERROR"
             else:
                 targetPatch = get_object_or_404(Patch, pk=urlCode)
-                targetChunk = Chunk.objects.filter(patch = targetPatch, chunkNum = chunk)[0]
+                print "patch - ", urlCode, " chunknum ", chunk
+                targetChunks = Chunk.objects.filter(patch = targetPatch, chunkNum = chunk)
+                print "Target chunks length - " + str(len(targetChunks))
+                targetChunk = targetChunks[0]
                 newComment = Comment()
                 newComment.chunk = targetChunk
                 newComment.commentAuthor = name
