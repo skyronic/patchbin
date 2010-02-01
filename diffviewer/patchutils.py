@@ -85,6 +85,15 @@ def convert_to_html(chunk, chunkIndex):
     for patch in patches:
         line1 = patch.start1
         line2 = patch.start2
+
+        # Compute the diff's header
+        # See documentation of class patch_obj in diff_match_patch.py
+        header = '<i>' + patch.__str__().split('\n')[0] + '</i>'
+
+        # Add this to the content
+        content = content + html_table_row(header, header, 'grayback', 
+                                           'grayback', '', '', '')
+
         for line in patch.diffs:
             
             action = line[0]

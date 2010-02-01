@@ -197,7 +197,8 @@ function commentFormAtDiv(element, content)
 
 function drawCommentForm (e)
 {
-	if($(this).hasClass("comentform") || $(this).hasClass("commentText"))
+	console.log("The clicked element is : ", this);	
+	if($(this).hasClass("commentform") || $(this).hasClass("commentText"))
 	{
 		// ignore
 	}
