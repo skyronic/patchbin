@@ -88,7 +88,7 @@ def convert_to_html(chunk, chunkIndex):
 
         # Compute the diff's header
         # See documentation of class patch_obj in diff_match_patch.py
-        header = '<i>' + patch.__str__().split('\n')[0] + '</i>'
+        header = '<br><i>' + patch.__str__().split('\n')[0] + '</i>'
 
         # Add this to the content
         content = content + html_table_row(header, header, 'grayback', 

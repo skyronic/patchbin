@@ -78,6 +78,9 @@ function addCommentToDiffElement(id, commentIndex, author, content)
 		appendDivToDiffLine(idString, commentDiv);
 
 		$(commentDiv).find("a").bind("click", {commentElement:commentDiv}, replyToComment);
+		// Prevent double clicking on a comment to create a new comment 
+		// reply dialog
+		$(commentDiv).bind('dblclick', drawCommentForm);
 	}
 }
 
@@ -193,6 +196,11 @@ function commentFormAtDiv(element, content)
 	// Find the submit button and hook to the click event
 	$(element).find('button').bind('click', {commentDiv:commentFormDiv}, postCommentFromForm);
 
+	// Force the double click thingy to activate on the comment form as 
+	// well, so that the bubbling up can be prevented
+	$(commentFormDiv).bind('dblclick', drawCommentForm);
+
+
 }
 
 function drawCommentForm (e)
@@ -200,7 +208,7 @@ function drawCommentForm (e)
 	console.log("The clicked element is : ", this);	
 	if($(this).hasClass("commentform") || $(this).hasClass("commentText"))
 	{
-		// ignore
+		e.stopPropagation();
 	}
 	else
 	{
