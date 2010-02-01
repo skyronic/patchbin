@@ -20,7 +20,6 @@ def index(request):
         'patch_form':Form,
         'url_root': 'http://127.0.0.1:8000',
         'static_path':'http://127.0.0.1:8000/static'
-
         })
     return HttpResponse(template.render(context))
 
@@ -64,4 +63,32 @@ def submit(request):
             
     return HttpResponse(errorMessage)
 
+def about(request):
+    """Renders the about page"""
+    template = loader.get_template('core/about.html')
+    Form = PatchForm()
+    context = Context({
+        'url_root': 'http://127.0.0.1:8000',
+        'static_path':'http://127.0.0.1:8000/static'
+        })
+    return HttpResponse(template.render(context))
 
+def contribute(request):
+    """Renders the /contribute/ page"""
+    template = loader.get_template('core/contrib.html')
+    Form = PatchForm()
+    context = Context({
+        'url_root': 'http://127.0.0.1:8000',
+        'static_path':'http://127.0.0.1:8000/static'
+        })
+    return HttpResponse(template.render(context))
+
+def sponsor(request):
+    """Renders the /sponsor/ page"""
+    template = loader.get_template('core/sponsor.html')
+    Form = PatchForm()
+    context = Context({
+        'url_root': 'http://127.0.0.1:8000',
+        'static_path':'http://127.0.0.1:8000/static'
+        })
+    return HttpResponse(template.render(context))
