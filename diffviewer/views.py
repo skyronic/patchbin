@@ -33,8 +33,8 @@ def showpatch(request, urlCode):
     if (targetPatch.patchDesc != ""):
         patchDesc = targetPatch.patchDesc
 
-    if (targetPatch.patchAuthor != ""):
-        patchAuthor = targetPatch.patchAuthor
+    if (targetPatch.authorName != ""):
+        patchAuthor = targetPatch.authorName
 
 
 

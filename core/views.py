@@ -43,8 +43,11 @@ def submit(request):
             # TODO: Convert to HTML            
         else:
             errorMessage = "Expecting patchText POST parameter"
-        if("description" in request.POST):
-            newPatch.description = request.POST['description']
+        if("patchDesc" in request.POST):
+            newPatch.description = request.POST['patchDesc']
+
+        if("authorName" in request.POST):
+            newPatch.authorName = request.POST['authorName']
         
         if("emailAddress" in request.POST):
             newPatch.emailAddress = request.POST['emailAddress']
