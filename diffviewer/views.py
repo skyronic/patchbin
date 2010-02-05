@@ -27,11 +27,24 @@ def showpatch(request, urlCode):
             print comment.diffSide
             comments.append(comment)
 
+    # Patch meta information
+    patchDesc = "No description provided"
+    patchAuthor = "No name provided"
+    if (targetPatch.patchDesc != ""):
+        patchDesc = targetPatch.patchDesc
+
+    if (targetPatch.patchAuthor != ""):
+        patchAuthor = targetPatch.patchAuthor
+
+
+
     context = Context({
         'chunks':chunks,
         'comments':comments,
         'url_root': 'http://127.0.0.1:8000',
-        'static_path':'http://127.0.0.1:8000/static'
+        'static_path':'http://127.0.0.1:8000/static',
+        'patchDesc':patchDesc,
+        'patchAuthor':patchAuthor
     })
     return HttpResponse(template.render(context))
 
