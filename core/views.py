@@ -44,7 +44,8 @@ def submit(request):
         else:
             errorMessage = "Expecting patchText POST parameter"
         if("patchDesc" in request.POST):
-            newPatch.description = request.POST['patchDesc']
+            newPatch.patchDesc = request.POST['patchDesc']
+            newPatch.patchDesc.replace('\n\n', '<br><br>')
 
         if("authorName" in request.POST):
             newPatch.authorName = request.POST['authorName']
