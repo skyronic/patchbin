@@ -8,6 +8,13 @@ from core.forms import PatchForm
 from core.models import Patch, Chunk, Comment
 import random
 
+def rawpatch(request, urlCode):
+    """Retrieves the raw patch"""
+    targetPatch = get_object_or_404(Patch, pk = urlCode)
+
+    return HttpResponse(targetPatch.diffText, mimetype="text/plain")
+
+
 
 def showpatch(request, urlCode):
     """
@@ -44,7 +51,8 @@ def showpatch(request, urlCode):
         'url_root': 'http://127.0.0.1:8000',
         'static_path':'http://127.0.0.1:8000/static',
         'patchDesc':patchDesc,
-        'patchAuthor':patchAuthor
+        'patchAuthor':patchAuthor,
+        'urlCode':urlCode
     })
     return HttpResponse(template.render(context))
 

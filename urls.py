@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     (r'^(?P<urlCode>[A-Za-z0-9]{6})$', 'patchbin.diffviewer.views.showpatch'),
     (r'^(?P<urlCode>[A-Za-z0-9]{6})/newcomment$',
      'patchbin.diffviewer.views.newcomment'),
+    (r'^(?P<urlCode>[A-Za-z0-9]{6})/raw$',
+     'patchbin.diffviewer.views.rawpatch'),
     (r'about/', 'patchbin.core.views.about'),
     (r'contribute/', 'patchbin.core.views.contribute'),
     (r'sponsor/', 'patchbin.core.views.sponsor')
