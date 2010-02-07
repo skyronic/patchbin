@@ -68,7 +68,6 @@ def submit(request):
 def about(request):
     """Renders the about page"""
     template = loader.get_template('core/about.html')
-    Form = PatchForm()
     context = Context({
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
@@ -78,7 +77,6 @@ def about(request):
 def contribute(request):
     """Renders the /contribute/ page"""
     template = loader.get_template('core/contrib.html')
-    Form = PatchForm()
     context = Context({
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
@@ -88,7 +86,6 @@ def contribute(request):
 def sponsor(request):
     """Renders the /sponsor/ page"""
     template = loader.get_template('core/sponsor.html')
-    Form = PatchForm()
     context = Context({
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
