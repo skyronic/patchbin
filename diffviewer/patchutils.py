@@ -70,7 +70,7 @@ def split_into_chunks(patch):
         currentChunk = (newFile, originalFile, chunk)
         chunks.append(currentChunk)
 
-    print "Finally extracted " + str(chunks)
+    #print "Finally extracted " + str(chunks)
     return chunks
 
 def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex):
@@ -144,7 +144,7 @@ def PatchToHtml(parent, patchText):
     try:
         chunks = split_into_chunks(patchText)
     except:
-        print "Splitting to chunks failed"
+        #print "Splitting to chunks failed"
         # Fail. Don't process patch
         return False
     
@@ -160,7 +160,7 @@ def PatchToHtml(parent, patchText):
         try:
             pChunk = process_chunk(chunk, chunkIndex)
         except:
-            print "Processing chunk failed"
+            #print "Processing chunk failed"
             # processing into chunk failed
             return False
                 
