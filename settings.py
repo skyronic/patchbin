@@ -1,5 +1,5 @@
 # Django settings for patchbin project.
-
+from privatesettings import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -7,14 +7,16 @@ ADMINS = (
     ('Anirudh', 'anirudh@anirudhsanjeev.org'),
 )
 
+DOMAIN = 'http://127.0.0.1:8000'
+
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = '/home/anirudhs/temp/patchbin.db'             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_ENGINE = engine           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = name             # Or path to database file if using sqlite3.
+DATABASE_USER = user             # Not used with sqlite3.
+DATABASE_PASSWORD = password         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_PORT = port             # Set to empty string for default. Not used with sqlite3.
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -48,8 +50,7 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'y+a#11dd&h90ifw)*b&#77@g@^j)kx!ddpru8#ft+l3(%cf8d*'
-
+SECRET_KEY = secretkey
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
@@ -65,12 +66,15 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'patchbin.urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    '/home/anirudhs/Projects/patchbin/templates',
-)
+if(DEBUG):
+    TEMPLATE_DIRS = (
+        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+        # Always use forward slashes, even on Windows.
+        # Don't forget to use absolute paths, not relative paths.
+        '/home/anirudhs/Projects/patchbin/templates',
+    )
+else:
+    TEMPLATE_DIRS = () # TODO: put something in here
 
 INSTALLED_APPS = (
     'django.contrib.auth',

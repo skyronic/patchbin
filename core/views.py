@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from core.forms import PatchForm
 from core.models import Patch
 import random
+import settings
 
 from diffviewer.patchutils import PatchToHtml
 
@@ -18,8 +19,8 @@ def index(request):
     Form = PatchForm()
     context = Context({
         'patch_form':Form,
-        'url_root': 'http://127.0.0.1:8000',
-        'static_path':'http://127.0.0.1:8000/static'
+        'url_root': settings.DOMAIN,
+        'static_path':settings.DOMAIN + '/static'
         })
     return HttpResponse(template.render(context))
 
@@ -72,8 +73,8 @@ def about(request):
     template = loader.get_template('core/about.html')
     Form = PatchForm()
     context = Context({
-        'url_root': 'http://127.0.0.1:8000',
-        'static_path':'http://127.0.0.1:8000/static'
+        'url_root': settings.DOMAIN,
+        'static_path':settings.DOMAIN + '/static'
         })
     return HttpResponse(template.render(context))
 
@@ -82,8 +83,8 @@ def contribute(request):
     template = loader.get_template('core/contrib.html')
     Form = PatchForm()
     context = Context({
-        'url_root': 'http://127.0.0.1:8000',
-        'static_path':'http://127.0.0.1:8000/static'
+        'url_root': settings.DOMAIN,
+        'static_path':settings.DOMAIN + '/static'
         })
     return HttpResponse(template.render(context))
 
@@ -92,7 +93,7 @@ def sponsor(request):
     template = loader.get_template('core/sponsor.html')
     Form = PatchForm()
     context = Context({
-        'url_root': 'http://127.0.0.1:8000',
-        'static_path':'http://127.0.0.1:8000/static'
+        'url_root': settings.DOMAIN,
+        'static_path':settings.DOMAIN + '/static'
         })
     return HttpResponse(template.render(context))
