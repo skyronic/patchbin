@@ -70,7 +70,6 @@ def split_into_chunks(patch):
         currentChunk = (newFile, originalFile, chunk)
         chunks.append(currentChunk)
 
-    #print "Finally extracted " + str(chunks)
     return chunks
 
 def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex):
@@ -142,10 +141,14 @@ def PatchToHtml(parent, patchText):
     
     # Try parsing the patch text into chunks
     try:
+        print "Splitting into chunks now"
         chunks = split_into_chunks(patchText)
     except:
         #print "Splitting to chunks failed"
         # Fail. Don't process patch
+        return False
+
+    if(len(chunks) == 0): # Occam's razor
         return False
     
     # process one chunk at a time
@@ -168,6 +171,8 @@ def PatchToHtml(parent, patchText):
         dbChunk.chunkHtml = pChunk[2]
         dbChunk.newFile = pChunk[0]
         dbChunk.originalFile = pChunk[1]
+
+        print "Saving a chunk " , dbChunk.chunkHtml
         
         # Save to database
         dbChunk.save()
