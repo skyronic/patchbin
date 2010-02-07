@@ -7,7 +7,7 @@ ADMINS = (
     ('Anirudh', 'anirudh@anirudhsanjeev.org'),
 )
 
-DOMAIN = 'http://127.0.0.1:8000'
+DOMAIN = 'http://patchbin.com'
 
 MANAGERS = ADMINS
 
@@ -71,7 +71,7 @@ if(DEBUG):
         # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
         # Always use forward slashes, even on Windows.
         # Don't forget to use absolute paths, not relative paths.
-        '/home/anirudhs/Projects/patchbin/templates',
+        '/home/antileet/webapps/patchbin/patchbin/templates',
     )
 else:
     TEMPLATE_DIRS = () # TODO: put something in here
@@ -82,6 +82,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'patchbin.core',
-    'patchbin.diffviewer',
-    'south'
+    'patchbin.diffviewer'
+    #'south'
 )

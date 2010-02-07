@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template import Context, loader
 from django.core.urlresolvers import reverse
-from core.forms import PatchForm
 from core.models import Patch
 import random
 import settings
@@ -16,9 +15,7 @@ def index(request):
     The Frontpage
     """
     template = loader.get_template('core/index.html')
-    Form = PatchForm()
     context = Context({
-        'patch_form':Form,
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
         })
