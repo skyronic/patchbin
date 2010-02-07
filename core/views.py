@@ -40,7 +40,9 @@ def submit(request):
             if(PatchToHtml(newPatch, newPatch.diffText)):
                 pass
             else:
-                errorMessage = "Parsing patch failed :("
+                errorMessage = """Parsing patch failed :(. Unified Diff format
+                only please. Thanks! If you feel that this is an error, please
+                email anirudh@anirudhsanjeev.org with the patch attached"""
             # TODO: Convert to HTML            
         else:
             errorMessage = "Expecting patchText POST parameter"
