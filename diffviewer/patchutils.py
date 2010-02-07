@@ -171,7 +171,6 @@ def PatchToHtml(parent, patchText):
         dbChunk.newFile = pChunk[0]
         dbChunk.originalFile = pChunk[1]
 
-        
         # Save to database
         dbChunk.save()
         

@@ -101,9 +101,6 @@ def newcomment(request, urlCode):
                 newComment.save()
         else:
             output = "ERROR"
-    except Exception as e:
-        from IPython import Shell
-        Shell.IPShellEmbed()
-        #print "exception ", e
+    except Exception, e:
         output = "ERROR"
     return HttpResponse(output)
