@@ -82,7 +82,7 @@ def newcomment(request, urlCode):
             # basic sanity check
             if(not (side == 'lhs' or side == 'rhs')):
                 output = "ERROR"
-            else if(name == '' or message == ''):
+            elif(name == '' or message == ''):
                 output = "ERROR"
             else:
                 targetPatch = get_object_or_404(Patch, pk=urlCode)
