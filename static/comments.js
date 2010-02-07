@@ -194,12 +194,12 @@ function commentFormAtDiv(element, content)
 	appendDivToDiffLine(element.id, commentFormDiv);
 
 	// Find the submit button and hook to the click event
-	$($(element).find('button')[0]).bind('click', {commentDiv:commentFormDiv}, postCommentFromForm);
+	$($(commentFormDiv).find('button')[0]).bind('click', {commentDiv:commentFormDiv}, postCommentFromForm);
 	
 	// Cancel button
-	$($(element).find('button')[1]).bind('click', {commentDiv:commentFormDiv}, function()
+	$($(commentFormDiv).find('button')[1]).bind('click', {commentDiv:commentFormDiv}, function(e)
 			{
-				$(commentFormDiv).hide();
+				$(e.data.commentDiv).hide();
 			});
 
 	// Force the double click thingy to activate on the comment form as 
