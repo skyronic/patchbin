@@ -141,7 +141,6 @@ def PatchToHtml(parent, patchText):
     
     # Try parsing the patch text into chunks
     try:
-        print "Splitting into chunks now"
         chunks = split_into_chunks(patchText)
     except:
         #print "Splitting to chunks failed"
@@ -172,7 +171,6 @@ def PatchToHtml(parent, patchText):
         dbChunk.newFile = pChunk[0]
         dbChunk.originalFile = pChunk[1]
 
-        print "Saving a chunk " , dbChunk.chunkHtml
         
         # Save to database
         dbChunk.save()
