@@ -13,8 +13,8 @@ class Patch(models.Model):
 class Chunk(models.Model):
     patch = models.ForeignKey(Patch)
     chunkNum = models.IntegerField()
-    originalFile = models.CharField(max_length = 50)
-    newFile = models.CharField(max_length = 50)
+    originalFile = models.CharField(max_length = 100)
+    newFile = models.CharField(max_length = 100)
     chunkText = models.TextField()
     chunkHtml = models.TextField()
     
