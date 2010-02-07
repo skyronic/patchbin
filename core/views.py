@@ -63,7 +63,7 @@ def submit(request):
         newPatch.save()
         
         # Redirect
-        return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=(key,)))
+        return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=[key]))
             
     return HttpResponse(errorMessage)
 
