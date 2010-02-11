@@ -21,7 +21,7 @@
 import sys
 import urllib2, urllib
 
-print "Patchbin upload script. Usage examples: 'diff file1 file2|patchbin', 'git\
+print "Patchbin upload script. Usage examples: 'diff file1 file2|patchbin', 'git \
 diff | patchbin', etc."
 print "Listening on stdin... ^C to quit"
 input_stdin = sys.stdin.read()
