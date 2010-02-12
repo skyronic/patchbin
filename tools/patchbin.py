@@ -20,25 +20,63 @@
 # THE SOFTWARE.
 import sys
 import urllib2, urllib
+from optparse import OptionParser, OptionGroup
 
-print "Patchbin upload script. Usage examples: 'diff file1 file2|patchbin', 'git \
-diff | patchbin', etc."
-print "Listening on stdin... ^C to quit"
-input_stdin = sys.stdin.read()
+HEADER = """\
+Patchbin upload script.
+Usage examples: 'diff file1 file2 | patchbin', 'git diff | patchbin', etc.
+Listening on stdin... ^C to quit"""
 
-name = ""
-description = "Uploaded via patchbin upload script"
-email = ""
+SUCCESS = """\
+SUCCESS!! View your patch online at:
+
+%s
+
+Thank you for using patchbin"""
+
+SERVER_ERROR = """\
+ERROR! The server didn't seem to process your patch properly.
+The exact error was:
+
+"""
+
+HTTP_ERROR = """\
+Unable to make the HTTP Request.
+Error details:"""
+
+def _build_parser():
+	"""Return a parser for the command-line interface."""
+	usage = "Usage: %prog [-q]"
+	parser = OptionParser(usage=usage)
+	
+	output = OptionGroup(parser, "Output Options")
+	output.add_option("-q", "--quiet",
+					  action="store_true", dest="quiet", default=False,
+					  help="print only the URL of the patch")
+	parser.add_option_group(output)
+	
+	return parser
+
 
 # Craft post request and send it
 if __name__ == "__main__":
+	(options, args) = _build_parser().parse_args()
+	
+	if not options.quiet:
+		print HEADER
+	input_stdin = sys.stdin.read()
+
+	name = ""
+	description = "Uploaded via patchbin upload script"
+	email = ""
+
 	url = "http://patchbin.com/submit"
 	postdata = {
 			'patchText':input_stdin,
 			'authorName':name,
 			'authorEmail':email,
 			'patchDesc':description
-			}
+	}
 	try:
 		data = urllib.urlencode(postdata)
 		req = urllib2.Request(url, data)
@@ -46,13 +84,17 @@ if __name__ == "__main__":
 
 		if(response.url != url):
 			# Completed successfully
-			print "SUCCESS!! View your patch online at:\n\n" + response.url + "\n\n"
-			print "Thank you for using patchbin"
+			if not options.quiet:
+				print SUCCESS % response.url
+			else:
+				print response.url,
 		else:
 			# The server couldn't process
-			print "ERROR! The server didn't seem to process your patch properly. The exact error was"
-			print response.read()
+			sys.stderr.write(SERVER_ERROR)
+			sys.stderr.write('\n'.join(l.strip() for l in response.read().splitlines()) + '\n')
+			sys.exit(1)
 	except Exception, e:
-		print "Unable to make the HTTP Request."
-		print "Error details: ", e
+		sys.stderr.write(HTTP_ERROR)
+		sys.stderr.write(str(e))
+		sys.exit(1)
 
