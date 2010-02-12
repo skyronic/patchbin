@@ -7,7 +7,7 @@ ADMINS = (
     ('Anirudh', 'anirudh@anirudhsanjeev.org'),
 )
 
-DOMAIN = 'http://127.0.0.1:8000'
+DOMAIN = domain
 
 MANAGERS = ADMINS
 
@@ -66,15 +66,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'patchbin.urls'
 
-if(DEBUG):
-    TEMPLATE_DIRS = (
-        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-        # Always use forward slashes, even on Windows.
-        # Don't forget to use absolute paths, not relative paths.
-        '/home/anirudhs/Projects/patchbin/templates',
-    )
-else:
-    TEMPLATE_DIRS = () # TODO: put something in here
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    templatepath
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

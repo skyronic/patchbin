@@ -31,7 +31,7 @@ def showpatch(request, urlCode):
         # Process each chunk separately
         chunkComments = Comment.objects.filter(chunk=individualChunk)
         for comment in chunkComments:
-            print comment.diffSide
+            #print comment.diffSide
             comments.append(comment)
 
     # Patch meta information
@@ -82,11 +82,14 @@ def newcomment(request, urlCode):
             # basic sanity check
             if(not (side == 'lhs' or side == 'rhs')):
                 output = "ERROR"
+            elif(name == '' or message == ''):
+                output = "ERROR"
             else:
                 targetPatch = get_object_or_404(Patch, pk=urlCode)
-                print "patch - ", urlCode, " chunknum ", chunk
+                #print "patch - ", urlCode, " chunknum ", chunk
                 targetChunks = Chunk.objects.filter(patch = targetPatch, chunkNum = chunk)
-                print "Target chunks length - " + str(len(targetChunks))
+                #print "Target chunks length - " + str(len(targetChunks))
+
                 targetChunk = targetChunks[0]
                 newComment = Comment()
                 newComment.chunk = targetChunk
@@ -100,9 +103,6 @@ def newcomment(request, urlCode):
                 newComment.save()
         else:
             output = "ERROR"
-    except Exception as e:
-        from IPython import Shell
-        Shell.IPShellEmbed()
-        print "exception ", e
+    except Exception, e:
         output = "ERROR"
     return HttpResponse(output)

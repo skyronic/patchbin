@@ -161,7 +161,7 @@ name:commentName ,message:commentString,side:elemParams.side,
 					}
 					else if(data == "ERROR")
 					{
-						alert("Something went wrong with saving your comment. Please try again later");
+						alert("Something went wrong with saving your comment. Empty comments are not allowed. Please try again later");
                         submitButton.disabled = false;
 					}
 				});
@@ -181,7 +181,7 @@ function commentFormAtDiv(element, content)
 	commentFormDiv = document.createElement("div");
 	commentID = 0;
 	commentFormDiv.id = element.id + "-comment-" + commentID;
-	commentFormDiv.innerHTML = '<div id="" class=""><p>Name: <input type="text" id="" /></p><p><textarea>' + content + '</textarea></p><p><button>Submit!</button></div>';
+	commentFormDiv.innerHTML = '<div id="" class=""><p>Name: <input type="text" id="" /></p><p><textarea>' + content + '</textarea></p><p><button>Submit!</button><button>Cancel</button></div>';
 	$(commentFormDiv).addClass("commentform");
 
 	if($(commentFormDiv).hasClass("whiteback"))
@@ -194,7 +194,13 @@ function commentFormAtDiv(element, content)
 	appendDivToDiffLine(element.id, commentFormDiv);
 
 	// Find the submit button and hook to the click event
-	$(element).find('button').bind('click', {commentDiv:commentFormDiv}, postCommentFromForm);
+	$($(commentFormDiv).find('button')[0]).bind('click', {commentDiv:commentFormDiv}, postCommentFromForm);
+	
+	// Cancel button
+	$($(commentFormDiv).find('button')[1]).bind('click', {commentDiv:commentFormDiv}, function(e)
+			{
+				$(e.data.commentDiv).hide();
+			});
 
 	// Force the double click thingy to activate on the comment form as 
 	// well, so that the bubbling up can be prevented

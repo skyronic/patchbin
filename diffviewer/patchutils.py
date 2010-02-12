@@ -4,7 +4,7 @@ import re
 import string
 from diff_match_patch import diff_match_patch
 from core.models import Chunk, Comment, Patch
-
+from cgi import escape
 def split_into_chunks(patch):
     chunks = []
     # Split into lines
@@ -72,7 +72,12 @@ def split_into_chunks(patch):
 
     return chunks
 
-def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex):
+def html_table_row(lhs, rhs, style1, style2, line1, line2, chunkIndex,
+        escapeHTML = True):
+    # Escape both lines
+    if(escapeHTML):
+        lhs = escape(lhs)
+        rhs = escape(rhs)
     output = '<tr><th><pre>' + line1 + '</pre></th><td class="'+ style1 + '" id="lhs-' + str(chunkIndex) + '-' + line1 + '"><pre>' + lhs + '</pre></td><th><pre>' + line2 + '</pre></th><td class="' + style2 + '" id="rhs-' + str(chunkIndex) + '-' + line2 + '"><pre>' + rhs + '</pre></td></tr>'
     return output
     
@@ -91,7 +96,8 @@ def convert_to_html(chunk, chunkIndex):
 
         # Add this to the content
         content = content + html_table_row(header, header, 'grayback', 
-                                           'grayback', '', '', '')
+                                           'grayback', '', '', '', escapeHTML =
+                                           False)
 
         for line in patch.diffs:
             
@@ -141,10 +147,9 @@ def PatchToHtml(parent, patchText):
     
     # Try parsing the patch text into chunks
     try:
-        print "Splitting into chunks now"
         chunks = split_into_chunks(patchText)
     except:
-        print "Splitting to chunks failed"
+        #print "Splitting to chunks failed"
         # Fail. Don't process patch
         return False
 
@@ -163,7 +168,7 @@ def PatchToHtml(parent, patchText):
         try:
             pChunk = process_chunk(chunk, chunkIndex)
         except:
-            print "Processing chunk failed"
+            #print "Processing chunk failed"
             # processing into chunk failed
             return False
                 
@@ -172,8 +177,6 @@ def PatchToHtml(parent, patchText):
         dbChunk.newFile = pChunk[0]
         dbChunk.originalFile = pChunk[1]
 
-        print "Saving a chunk " , dbChunk.chunkHtml
-        
         # Save to database
         dbChunk.save()
         

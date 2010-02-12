@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template import Context, loader
 from django.core.urlresolvers import reverse
-from core.forms import PatchForm
 from core.models import Patch
 import random
 import settings
@@ -16,9 +15,7 @@ def index(request):
     The Frontpage
     """
     template = loader.get_template('core/index.html')
-    Form = PatchForm()
     context = Context({
-        'patch_form':Form,
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
         })
@@ -66,14 +63,15 @@ def submit(request):
         newPatch.save()
         
         # Redirect
-        return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=(key,)))
+        #return HttpResponseRedirect(reverse('patchbin.diffviewer.views.showpatch', args=[key]))
+	return HttpResponseRedirect(settings.DOMAIN + '/' + key)
+	
             
     return HttpResponse(errorMessage)
 
 def about(request):
     """Renders the about page"""
     template = loader.get_template('core/about.html')
-    Form = PatchForm()
     context = Context({
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
@@ -83,7 +81,6 @@ def about(request):
 def contribute(request):
     """Renders the /contribute/ page"""
     template = loader.get_template('core/contrib.html')
-    Form = PatchForm()
     context = Context({
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
@@ -93,7 +90,6 @@ def contribute(request):
 def sponsor(request):
     """Renders the /sponsor/ page"""
     template = loader.get_template('core/sponsor.html')
-    Form = PatchForm()
     context = Context({
         'url_root': settings.DOMAIN,
         'static_path':settings.DOMAIN + '/static'
