@@ -5,10 +5,16 @@ import string
 from diff_match_patch import diff_match_patch
 from core.models import Chunk, Comment, Patch
 from cgi import escape
+from django.utils.encoding import smart_str, smart_unicode
 def split_into_chunks(patch):
     chunks = []
+
+    # Normalize newlines
+    patch = re.sub(r'(\r\n|\r|\n)','\n',patch)
+    patch = smart_str(patch)
+
     # Split into lines
-    lines = patch.split('\r\n')
+    lines = patch.split('\n')
     
     chunk = ''
     originalFile = ''
@@ -149,7 +155,6 @@ def PatchToHtml(parent, patchText):
     try:
         chunks = split_into_chunks(patchText)
     except:
-        #print "Splitting to chunks failed"
         # Fail. Don't process patch
         return False
 
@@ -167,9 +172,7 @@ def PatchToHtml(parent, patchText):
         
         try:
             pChunk = process_chunk(chunk, chunkIndex)
-        except:
-            #print "Processing chunk failed"
-            # processing into chunk failed
+        except Exception, e:
             return False
                 
         dbChunk.chunkText = chunk[2]
